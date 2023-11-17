@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<canvas id="grafica"></canvas>
+<script>
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const tipo = urlSearchParams.get("tipo");
+    console.log("El tipo es:", tipo);
+
+    let titulo;
+    switch (tipo) {
+        case "acx":
+            titulo = "Aceleración en X";
+            break;
+        case "acy":
+            titulo = "Aceleración en Y";
+            break;
+        case "acz":
+            titulo = "Aceleración en Z";
+            break;
+        case "rotx":
+            titulo = "Rotación en X";
+            break;
+        case "roty":
+            titulo = "Rotación en Y";
+            break;
+        case "rotz":
+            titulo = "Rotación en Z";
+            break;
+        case "temp":
+            titulo = "Temperatura";
+            break;
+        default:
+            titulo = "Datos";
+    }
+
+    const url = 'http://localhost:1880/datos-id?id=2';
+    fetch(url)
+    .then(response => response.json())
+    .then(data => {
+        const $grafica = document.querySelector("#grafica");
+        const etiquetas = [];
+        const datos = {
+            label: titulo,
+            data: [],
+            backgroundColor: 'rgba(0, 123, 255, 0.5)', // Color de fondo
+            borderColor: "blue",
+            borderWidth: 1
+        };
+
+        for (let i = 0; i < data.length; i++) {
+            etiquetas.push(data[i].fecha);
+            switch (tipo) {
+                case "acx":
+                    datos.data.push(data[i].acc_x);
+                    break;
+                case "acy":
+                    datos.data.push(data[i].acc_y);
+                    break;
+                case "acz":
+                    datos.data.push(data[i].acc_z);
+                    break;
+                case "rotx":
+                    datos.data.push(data[i].rot_x);
+                    break;
+                case "roty":
+                    datos.data.push(data[i].rot_y);
+                    break;
+                case "rotz":
+                    datos.data.push(data[i].rot_z);
+                    break;
+                case "temp":
+                    datos.data.push(data[i].temperatura);
+                    break;
+            }
+        }
+
+        new Chart($grafica, {
+            type: 'line', // Tipo de gráfica
+            data: {
+                labels: etiquetas,
+                datasets: [datos]
+            },
+            options: {
+                scales: {
+                    y: { // Ajuste para la versión más reciente de Chart.js
+                        beginAtZero: true
+                    }
+                },
+            }
+        });
+    })
+    .catch(error => console.error(error));
+</script>
+</body>
+</html>

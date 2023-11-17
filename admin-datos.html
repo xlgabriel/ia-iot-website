@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Opciónador con Bootstrap</title>
+    <!-- Agrega los enlaces a los archivos de Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+    <div class="container mt-5">
+        <h2>Selecciona Visualizador de datos</h2>
+        <form id="selectorForm">
+            <div class="form-group">
+                <label for="opciones">Selecciona una opción:</label>
+                <select class="form-control" id="opciones" name="opciones">
+                    <option value="prueba.html">Tabla de datos</option>
+                    <option value="prueba2.html?id=1">Cards datos</option>
+                    <option value="prueba3.html?tipo=temp">Grafica de temperatura </option>
+                    <option value="prueba3.html?tipo=humedad">Grafica de humedad </option>
+                    <!-- Agrega más opciones según sea necesario -->
+                </select>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="redirigir()">Ir a la página seleccionada</button>
+        </form>
+    </div>
+
+    <script>
+        function redirigir() {
+            // Obtiene el valor seleccionado
+            var selectedOption = document.getElementById("opciones").value;
+            // Redirige a la página seleccionada
+            window.location.href = selectedOption;
+        }
+    </script>
+
+</body>
+
+</html>

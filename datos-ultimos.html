@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Ultimos Datos</title>
+</head>
+
+<body>
+    <div id="datos" style="background-color: rgb(202, 191, 187);">
+        <div class="row pt-5">
+            <h3 class="text-center pb-5 h1">Ultimos datos capturados</h3>
+        </div>
+        <div id="card-container">
+        </div>
+    </div>
+    <script>
+        const url = 'http://localhost:1880/datos';
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const cardContainer = document.querySelector('#card-container');
+                data.forEach(obj => {
+                    const fecha = document.createElement('div');
+                    fecha.setAttribute("class", "text-center pb-5 h1");
+                    fecha.innerHTML = `${obj.fecha}`;
+                    const card = document.createElement('div');
+                    card.setAttribute("class", "row row-cols-1 row-cols-md-3 g-4");
+                    card.innerHTML = `
+                    <div class="col">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">ACELERACION X</h5>
+                                <p class="card-text">${obj.ac_x}</p>
+                                <a href="grafica.html?tipo=acx" class="btn btn-primary">Ver gráfica</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">ACELERACION Y</h5>
+                                <p class="card-text">${obj.ac_y}</p>
+                                <a href="grafica.html?tipo=acy" class="btn btn-primary">Ver gráfica</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">ACELERACION Z</h5>
+                                <p class="card-text">${obj.ac_z}</p>
+                                <a href="grafica.html?tipo=acz" class="btn btn-primary">Ver gráfica</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">ROTACION X</h5>
+                                <p class="card-text">${obj.rot_x}</p>
+                                <a href="grafica.html?tipo=rotx" class="btn btn-primary">Ver gráfica</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">ROTACION Y</h5>
+                                <p class="card-text">${obj.rot_y}</p>
+                                <a href="grafica.html?tipo=roty" class="btn btn-primary">Ver gráfica</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">ROTACION Z</h5>
+                                <p class="card-text">${obj.rot_z}</p>
+                                <a href="grafica.html?tipo=rotz" class="btn btn-primary">Ver gráfica</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">TEMPERATURA</h5>
+                                <p class="card-text">${obj.temperatura}</p>
+                                <a href="grafica.html?tipo=temp" class="btn btn-primary">Ver gráfica</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                    cardContainer.appendChild(fecha);
+                    cardContainer.appendChild(card);
+                });
+            })
+            .catch(error => console.error(error));
+    </script>
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
